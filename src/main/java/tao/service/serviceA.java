@@ -1,27 +1,32 @@
 package tao.service;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
+import tao.config.BatisXML;
 import tao.config.Data;
+import tao.config.WebConfig;
 import tao.mapper.UserMapper;
 import tao.model.Person;
 
 @Service("serviceA")
 public class serviceA {
 
-	//@Autowired
-	//private UserMapper um;
-	
-	@Autowired
+	// @Autowired
+	// private UserMapper um;
+
+	// @Autowired
 	private SqlSessionFactory factory;
 
 	public String method1(String arg1) {
 
-		
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 		ctx.register(Data.class);
 		ctx.refresh();
@@ -33,11 +38,22 @@ public class serviceA {
 		mapper.insert(p);
 		return "";
 	}
+
 	public String method2(String arg1) {
-		//sqlsession not thread safe
-		SqlSession session=factory.openSession();
-		UserMapper m=session.getMapper(UserMapper.class);
-		m.insert(null);
+		// sqlsession not thread safe
+		SqlSession session = BatisXML.getSqlSessionFactory().openSession();
+		//sqlSessionFactory.openSession(ExecutorType.BATCH);  
+		Person p = new Person();
+		p.seq = 3;
+		//Configuration s=session.getConfiguration();
+		Person retp=session.selectOne("people.select", p);
+		Map<String,Person> map=session.selectMap("people.selectmap", "seq");
+		
+		retp=map.get(2);
+		//List<Person> listp=session.selectList("people.selectall");
+		//xml namespace can be any one, only need to be same as here. no relation to java namespace code
+		retp.name="change";
+		retp=session.selectOne("people.select", p);
 		return "";
 	}
 
