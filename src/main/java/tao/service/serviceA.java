@@ -1,18 +1,14 @@
 package tao.service;
 
-import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
 import tao.config.BatisXML;
 import tao.config.Data;
-import tao.config.WebConfig;
 import tao.mapper.UserMapper;
 import tao.model.Person;
 
