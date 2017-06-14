@@ -6,6 +6,8 @@
 	<resultMap id="Result" type="Person">
 		<id property="seq" column="seq" />
 		<result property="name" column="name"/>
+		<result property="level" column="levl"/>
+		<result property="description" column="description"/>
 	</resultMap>
 	<select id="selectmap" resultType="map" resultMap="Result">
 	    SELECT * from people
@@ -16,10 +18,10 @@
 	<select id="selectall" resultType="Person" resultMap="Result">
 	    SELECT * from people
 	</select>	
-	<insert id="insert" parameterType="Person"  keyProperty="id" useGeneratedKeys="true">
-		INSERT into village(name,district) VALUES(#{name}, #{district}) 	    
-	</insert>
-	
+	<insert id="insert" parameterType="Person">
+		INSERT INTO PEOPLE(SEQ,NAME,LEVL,DESCRIPTION) VALUES(SEQUENCE1.nextval, #{name}, #{level}, #{description}) 	    
+	</insert >
+<!-- 	insert keyProperty="seq" useGeneratedKeys="true"-->
 	<update id="update" parameterType="Person">
 		UPDATE village SET name=#{name}, district =#{district} WHERE id =#{id}  	    
 	</update>

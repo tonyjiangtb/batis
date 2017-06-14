@@ -20,7 +20,9 @@ public class serviceA {
 
 	// @Autowired
 	private SqlSessionFactory factory;
-
+	serviceA(){
+		System.out.println("serviceA created");
+	}
 	public String method1(String arg1) {
 
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
@@ -44,10 +46,15 @@ public class serviceA {
 		//Configuration s=session.getConfiguration();
 		Person retp=session.selectOne("people.select", p);
 		Map<String,Person> map=session.selectMap("people.selectmap", "seq");
-		
 		retp=map.get(2);
+		p.seq=99;
+		p.name="new person";
+		p.level=(float) 4.5;
+		p.description="lala";
+		int ret=session.insert("people.insert", p);
 		//List<Person> listp=session.selectList("people.selectall");
 		//xml namespace can be any one, only need to be same as here. no relation to java namespace code
+		session.commit();
 		retp.name="change";
 		retp=session.selectOne("people.select", p);
 		return "";
