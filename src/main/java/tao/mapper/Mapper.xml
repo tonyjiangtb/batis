@@ -3,25 +3,42 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="people" >
-	<resultMap id="Result" type="Person">
-		<id property="seq" column="seq" />
-		<result property="name" column="name"/>
+	<resultMap id="Result" type="tao.model.Person">
+<!-- 		<id property="seq" column="seq"/> -->
+<!-- 		<result property="name" column="name" javaType="String"/> -->
 		<result property="level" column="levl"/>
-		<result property="description" column="description"/>
+		<!-- you only need this shit if name is different -->
+		<!-- 	 birth no write, can also correctly mapped,wtf -->
 	</resultMap>
-	<select id="selectmap" resultType="map" resultMap="Result">
+	<resultMap id="Result2" type="tao.model.Person">
+ 		<id property="seq" column="seq"/>
+ 		<result property="name" column="name"/>
+	</resultMap>
+	<select id="selectmap" resultType="map" resultMap="Result2">
+	<!-- don't need this shit use selectmap2 -->
+	    SELECT * from people
+	</select>
+	<select id="selectmap2" resultType="tao.model.Person">
 	    SELECT * from people
 	</select>
 	<select id="select" resultType="Person" parameterType="int" resultMap="Result">
 	    SELECT * from people where seq=#{seq}
 	</select>
-	<select id="selectall" resultType="Person" resultMap="Result">
+	<select id="selectall" resultType="Person">
+	    SELECT * from people
+	</select>
+	<select id="selectall2" resultMap="Result">
 	    SELECT * from people
 	</select>	
+	<!-- 	 Use resultMap OR resultType, not both -->
 	<insert id="insert" parameterType="Person">
-		INSERT INTO PEOPLE(SEQ,NAME,LEVL,DESCRIPTION) VALUES(SEQUENCE1.nextval, #{name}, #{level}, #{description}) 	    
+	 <selectKey keyProperty="seq2" keyColumn="ohyeah" resultType="int" order="BEFORE">
+        select SEQUENCE1.nextval AS ohyeah from dual  
+   </selectKey>   
+		INSERT INTO PEOPLE(SEQ,NAME,LEVL,BIRTH,BIRTHTIME,DESCRIPTION) VALUES(#{seq2}, #{name}, #{level}, #{birth},#{birth}, #{description}) 	    
 	</insert >
-<!-- 	insert keyProperty="seq" useGeneratedKeys="true"-->
+	<!-- AFTER ,insert seq with object value, then overwrite nextval to object value,quite stupid -->
+<!-- 	mysql sqlserver return auto generated key insert keyProperty="seq" useGeneratedKeys="true"-->
 	<update id="update" parameterType="Person">
 		UPDATE village SET name=#{name}, district =#{district} WHERE id =#{id}  	    
 	</update>

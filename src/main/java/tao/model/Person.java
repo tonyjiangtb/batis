@@ -6,9 +6,10 @@ public class Person {
 	public String name;
 	public String description;
 	public Date birth;
-	public int seq;
+	public long seq;
+	public long seq2;
 	public float level;
-	public int getSeq() {
+	public long getSeq() {
 		return seq;
 	}
 
