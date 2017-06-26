@@ -21,7 +21,7 @@
 	<select id="selectmap2" resultType="tao.model.Person">
 	    SELECT * from people
 	</select>
-	<select id="select" resultType="Person" parameterType="int" resultMap="Result">
+	<select id="select" parameterType="long" resultMap="Result">
 	    SELECT * from people where seq=#{seq}
 	</select>
 	<select id="selectall" resultType="Person">
@@ -40,10 +40,10 @@
 	<!-- AFTER ,insert seq with object value, then overwrite nextval to object value,quite stupid -->
 <!-- 	mysql sqlserver return auto generated key insert keyProperty="seq" useGeneratedKeys="true"-->
 	<update id="update" parameterType="Person">
-		UPDATE village SET name=#{name}, district =#{district} WHERE id =#{id}  	    
+		UPDATE PEOPLE SET name=#{name} WHERE SEQ=#{seq} 	    
 	</update>
 	
-	<delete id="deleteVillage" parameterType="int">
-		DELETE FROM village WHERE id =#{id}  	    
+	<delete id="delete" parameterType="long">
+		DELETE FROM PEOPLE WHERE seq =#{seq}  	    
 	</delete>
 </mapper>

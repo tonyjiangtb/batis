@@ -21,7 +21,7 @@ public class DataController {
 	@RequestMapping("/greeting")
     public String greeting(@RequestParam(value="name", defaultValue="World") String name) throws Exception {
 		String ret;
-		ret=s.method2("haha");
+		ret=s.method3("haha");
 		
         return "returned:"+ret;
     }

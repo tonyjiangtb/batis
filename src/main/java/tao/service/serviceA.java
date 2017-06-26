@@ -75,5 +75,24 @@ public class serviceA {
 		session.close();
 		return "person seq:"+p.seq;
 	}
+	
+	public String method3(String arg1) throws ParseException {
+		// sqlsession not thread safe
+		SqlSession session = BatisXML.getSqlSessionFactory().openSession();
+		//sqlSessionFactory.openSession(ExecutorType.BATCH);  
+		Person p = new Person();
+		Person p2 = new Person();
+		p2.seq=1;
+		//you can use object or parametertype long here ,amazing
+		//p=session.selectOne("people.select", p2);
+		p=session.selectOne("people.select", 82L);
+		p.name=p.name.trim()+ "changed";
+		session.update("update",p);
+		//session.delete("delete", 1);
+		session.delete("delete", p);
+		session.commit();
+		session.close();
+		return "updated "+p.name;
+	}
 
 }

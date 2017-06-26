@@ -13,7 +13,7 @@ public class Person {
 		return seq;
 	}
 
-	public void setSeq(int seq) {
+	public void setSeq(long seq) {
 		this.seq = seq;
 	}
 
