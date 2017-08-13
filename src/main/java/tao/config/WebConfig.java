@@ -1,10 +1,5 @@
 package tao.config;
 
-import java.io.IOException;
-import java.io.InputStream;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -15,5 +10,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class WebConfig {
 
-
+	WebConfig(){
+		System.out.println("webconfig created");
+	}
 }

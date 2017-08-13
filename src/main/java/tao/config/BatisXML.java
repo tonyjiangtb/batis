@@ -6,7 +6,10 @@ import java.io.InputStream;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import tao.service.Comp1;
 
 @Configuration
 public class BatisXML {
@@ -31,5 +34,10 @@ public class BatisXML {
 	}
 	public static SqlSessionFactory getSqlSessionFactory(){
 		return sqlSessionFactory;
+	}
+	@Bean
+	public Comp1 GetBean()
+	{
+		return new Comp1();
 	}
 }

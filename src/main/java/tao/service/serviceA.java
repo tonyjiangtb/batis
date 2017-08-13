@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +22,9 @@ import tao.model.Person;
 @Service("serviceA")
 public class serviceA {
 
+	@Autowired
+	private Comp1 bean1;
 
-
-	
 	// @Autowired
 	private SqlSessionFactory factory;
 	serviceA(){
